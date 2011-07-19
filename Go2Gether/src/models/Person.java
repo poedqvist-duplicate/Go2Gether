@@ -26,6 +26,7 @@ public class Person {
 		return age;
 	}
 	
+	//Metod ej klar än
 	public void addJourney(Journey j){
 		for(int i = 0; i < Journeys.length; i++){
 			if(Journeys[i].equals(null)){
