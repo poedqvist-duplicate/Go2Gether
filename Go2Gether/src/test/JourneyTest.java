@@ -5,7 +5,9 @@ package test;
 
 import static org.junit.Assert.*;
 
+import models.Journey;
 import models.Person;
+import models.City;
 
 import org.junit.Test;
 
@@ -16,14 +18,22 @@ import org.junit.Test;
 public class JourneyTest {
 	@Test
 	public void journeyKnowsItsAttributes() {
-		Journey j = new Journey();
 		
-		j.setStart("Gšteborg");
-		j.setEnd("Stockholm");
+		City t1 = new City("Göteborg");
+		City t2 = new City("Stockholm");
+		City t3 = new City("Ulricehamn");
 		
-		assertEquals("Gšteborg", j.getStart());
-		assertEquals("Stockholm", j.getEnd());
+		Journey j = new Journey(t1, t2);
 		
+		assertFalse(j.getStartCity().equals("Stockholm"));
+		assertEquals("Göteborg", j.getStartCity());
+		assertEquals("Stockholm", j.getEndCity());
+		
+		j.setStartCity(t3);
+		j.setEndCity(t1);
+		
+		assertEquals("Ulricehamn", j.getStartCity());
+		assertEquals("Göteborg", j.getEndCity());
 	}
 
 }
