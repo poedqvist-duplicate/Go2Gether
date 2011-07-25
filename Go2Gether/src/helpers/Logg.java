@@ -18,12 +18,23 @@ public class Logg {
 		debugMode = debug;
 	}
 	
-	public void write(String mess){
+	public void write(String mess, boolean file){
 		if (debugMode){
-			System.out.println(mess);
+			if (file){
+			
+			}else
+				System.out.println(mess);
 		}
 		else
 			JOptionPane.showMessageDialog(null, "NOT IMPLEMENTED!!");
+	}
+	
+	/**
+	 * assuming that you want to run debug-mode...
+	 * @param mess
+	 */
+	public static void write(String mess){
+		System.out.println(mess);
 	}
 
 }

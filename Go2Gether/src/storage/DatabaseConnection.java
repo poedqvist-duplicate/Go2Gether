@@ -1,5 +1,7 @@
 package storage;
 
+import helpers.Logg;
+
 import java.sql.*;
 import java.util.Calendar;
 import java.util.UUID;
@@ -59,24 +61,25 @@ public class DatabaseConnection {
 	
 	public void log(String mess, String log){
 		//Should probably be in a own class, since this is instead should be a connection to the file-system and a log-file
+		String message = "";
+		
 		if (mess.equals("STATEMENT_ERROR")){
-			System.out.println("(Application will exit!!)\n"
+			message = ("(Application will exit!!)\n"
         	    + "We got an exception while creating a statement: "
         	    + "That propably means we are no longer connected.");
 		}else if (mess.equals("NEVER_GET_HERE")){
-            System.out.println("(Try-catch?)Err: We should never get here.");
+			message = ("(Try-catch?)Err: We should never get here.");
 		}else if (mess.equals("SUCCESS")){
-			System.out.println("dB:Connection successful");
+			message = ("dB:Connection successful");
 		}else if (mess.equals("COUT_NOT_CONNECT")){
-			System.out.println("(Application will exit!!)\n"
+			message = ("(Application will exit!!)\n"
 	        		+ "Couldn't connect: print out a stack trace");
 		}else if (mess.equals("NOT_FIND_DRIVER_CLASS")){
-            System.err.println("(Application will exit!!)\n"
+			message = ("(Application will exit!!)\n"
         	    + "Couldn't find driver class:");
 		}
-        
 		
-		System.out.println(log);
+		Logg.write(message + "\n" + log);
 	}
 
 	/**
@@ -111,13 +114,12 @@ public class DatabaseConnection {
     
     /**
      * This method will execute a SQL-statement, returning a ResultSet
-     * with all the information extracted by the sqlStatement...
-     * WILL RETURN NULL IF THERE IS NO CONNECTION!!
-     *  eg: "SELECT * FROM myTable;"
-     * This method is mainly meant to be used internally, but I left the
-     *  it public for now.
-     *  @param sqlString like the sample above..
-     *  @return ResultSet with the data from the db.
+     * with all the information extracted from the db..
+     * 
+     * Use the executeSQL when you want to perform SELECTS...
+     * Use the executeUpdate when you want to perform UPDATE/INSERT/DELETE...
+     * 
+     * @param sqlString is the actual SQL-query you want to send to the db.
      */
     public ResultSet executeSQL(String sqlString){
     	ResultSet rs = null;
@@ -136,12 +138,13 @@ public class DatabaseConnection {
     }
     
     /**
-     * This method will execute a DDL or DML -satement and 
-     *  return a int with the number of tuples affected...
-     * If return value is < 0 then we're not connected to db!
-     * @param sqlString eg.
-     * "UPDATE myTable SET aColumn = '2'  WHERE aValue = '1234567890' ;"
-     * @return int with the number of tuples that were affected..
+     * This method will execute a SQL-statement, returning a ResultSet
+     * with all the information extracted from the db..
+     * 
+     * Use the executeSQL when you want to perform SELECTS...
+     * Use the executeUpdate when you want to perform UPDATE/INSERT/DELETE...
+     * 
+     * @param sqlString is the actual SQL-query you want to send to the db.
      */
     public int executeUpdate(String sqlString){
 		int ret = -1;
@@ -154,7 +157,6 @@ public class DatabaseConnection {
 		       	    + "That propably means our SQL is invalid.");
 		        se.printStackTrace();
 		        System.out.println(se.getMessage());
-		        //System.exit(1);
 		    }
 		}
 		return ret;
