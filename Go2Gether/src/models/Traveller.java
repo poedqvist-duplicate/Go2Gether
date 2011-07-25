@@ -3,16 +3,22 @@
  */
 package models;
 
+import java.util.ArrayList;
+
 /**
  * @author Kristofer
  *
  */
-public class Person {
+public class Traveller {
 	
 	private String name;
 	private String phoneNumber;
 	private String age;
-	private Journey[] Journeys; 	
+	private ArrayList<Journey> journeys; 	
+	
+	public Traveller(){
+		journeys = new ArrayList<Journey>();
+	}
 	
 	public String getName(){
 		return name;
@@ -26,17 +32,12 @@ public class Person {
 		return age;
 	}
 	
-	//Metod ej klar än
 	public void addJourney(Journey j){
-		for(int i = 0; i < Journeys.length; i++){
-			if(Journeys[i].equals(null)){
-				
-			}
-		}
+		journeys.add(j);
 	}
 	
-	public Journey[] getAllJourneys(){
-		return Journeys;
+	public ArrayList<Journey> getAllJourneys(){
+		return journeys;
 	}
 	
 	public void setName(String name){
@@ -50,6 +51,5 @@ public class Person {
 	public void setAge(String age){
 		this.age = age;
 	}
-	
 
 }
