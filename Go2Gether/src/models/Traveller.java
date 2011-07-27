@@ -3,6 +3,8 @@
  */
 package models;
 
+import java.util.ArrayList;
+
 /**
  * @author Kristofer
  *
@@ -12,7 +14,7 @@ public class Traveller {
 	private String name;
 	private String phoneNumber;
 	private String age;
-	private Journey[] Journeys; 	
+	private ArrayList<Journey> journeys = new ArrayList<Journey>();	
 	
 	public String getName(){
 		return name;
@@ -26,17 +28,16 @@ public class Traveller {
 		return age;
 	}
 	
-	//Something goes wrong when i try to set Journey[i] = j
-	public void addJourney(Journey j){
-		for(int i = 0; i <= Journeys.length; i++){
-			if(Journeys[i] == null){
-				Journeys[i] = j;
-			}
-		}
+	public void addJourney(Journey journey){
+		journeys.add(journey);
 	}
 	
-	public Journey[] getAllJourneys(){
-		return Journeys;
+	public void removeJourney(Journey journey){
+		journeys.remove(journey);
+	}
+	
+	public ArrayList<Journey> getAllJourneys(){
+		return journeys;
 	}
 	
 	public void setName(String name){
