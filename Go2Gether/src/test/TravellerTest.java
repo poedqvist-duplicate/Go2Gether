@@ -5,8 +5,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import models.City;
 import models.Journey;
 import models.Traveller;
@@ -56,11 +54,11 @@ public class TravellerTest {
 		p1.addJourney(j2);
 		
 		//Creates temporary array to recieve p1's array
-		 ArrayList<Journey> testArr = p1.getAllJourneys();
+		Journey[] testArr = p1.getAllJourneys();
 		
 		//Checks if first elemts has the correct end- and startcities
-		assertEquals("Göteborg", testArr.get(0).getStartCity());
-		assertEquals("Stockholm", testArr.get(0).getEndCity());
+		assertEquals("Göteborg", testArr[0].getStartCity());
+		assertEquals("Stockholm", testArr[0].getEndCity());
 		
 	}
 

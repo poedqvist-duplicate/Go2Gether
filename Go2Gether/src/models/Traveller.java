@@ -3,13 +3,6 @@
  */
 package models;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.UUID;
-
-import storage.Traveller;
-
 /**
  * @author Kristofer
  *
@@ -19,11 +12,7 @@ public class Traveller {
 	private String name;
 	private String phoneNumber;
 	private String age;
-	private ArrayList<Journey> journeys; 	
-	
-	public Traveller(){
-		journeys = new ArrayList<Journey>();
-	}
+	private Journey[] Journeys; 	
 	
 	public String getName(){
 		return name;
@@ -37,12 +26,17 @@ public class Traveller {
 		return age;
 	}
 	
+	//Something goes wrong when i try to set Journey[i] = j
 	public void addJourney(Journey j){
-		journeys.add(j);
+		for(int i = 0; i <= Journeys.length; i++){
+			if(Journeys[i] == null){
+				Journeys[i] = j;
+			}
+		}
 	}
 	
-	public ArrayList<Journey> getAllJourneys(){
-		return journeys;
+	public Journey[] getAllJourneys(){
+		return Journeys;
 	}
 	
 	public void setName(String name){
@@ -57,47 +51,4 @@ public class Traveller {
 		this.age = age;
 	}
 
-	
-/*
-    public int addTraveller(Traveller trav){
-		int retVal = -1;
-		if (isConnected()){
-		    String sqlString = String.format(
-			"INSERT INTO \"Travellers\" VALUES ('%s', '%s', '%s', %d);",
-			trav.getName(), trav.getId(), trav.getPhone(), trav.getAge());
-		    retVal = executeUpdate(sqlString);
-		}
-		return retVal;
-    }
-    
-    
-    //Get...
-    public Traveller getTraveller(UUID id){
-    	Traveller retTrav = null;
-		if (isConnected()){
-		    String query = "SELECT * FROM \"Travellers\" WHERE " +
-		    		   "Id = '" + id +
-		    		   "' ORDER BY Id;";
-		    ResultSet travellerSet = executeSQL(query);
-		    if ( travellerSet == null )
-		    	System.out.println("DEBUGG ME->NULL @ getCustomer!");
-		    try{
-		            while(travellerSet.next()){
-		        	retTrav = new Traveller(
-		        			travellerSet.getString(1),	//Name
-		        			travellerSet.getString(2),	//Id
-		        			travellerSet.getString(3),	//Phone
-		        			travellerSet.getString(4));	//Age
-		            }
-		            travellerSet.close();
-		        }catch (SQLException se){
-		            System.out.println("Exception while getting bookSet: " +
-		        	    "shouldnt happend: We've done something bad.");
-		            se.printStackTrace();
-		            System.out.println(se.getMessage());
-		        } 
-		}
-		return retTrav;
-    }*/
-	
 }
