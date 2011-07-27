@@ -19,7 +19,7 @@ public class StorageFacade {
 	
 	//}
 	
-	public void saveTraveller(Traveller travellerToBeSaved) throws SQLException {
+	public void saveTraveller(Traveller travellerToBeSaved) {
 		
 		DatabaseConnection dc1 = new DatabaseConnection();
 		dc1.connect();
@@ -31,8 +31,22 @@ public class StorageFacade {
 				travellerToBeSaved.getName(), travellerToBeSaved.getId(), 
 					travellerToBeSaved.getPhone(), travellerToBeSaved.getAge());
 		
-		sqlStatement.executeUpdate(sqlString);
+		try {
+			sqlStatement.executeUpdate(sqlString);
+		} catch (SQLException ex) {
+			System.out.println("There was en error when executing the update");
+		}
 		
 	}
+	
+	/**
+	public Traveller getTraveller(){
+		
+		String sqlString = "SELECT * FROM \"Travellers\" WHERE name = 
+		ResultSet rs;
+		Statement st;
+		rs = st.executeQuery();
+	}
+	*/
 
 }

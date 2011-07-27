@@ -68,12 +68,7 @@ public class Traveller {
 	
 	public void saveTraveller(){
 		StorageFacade sf = new StorageFacade();
-		try {
-			sf.saveTraveller(this);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		sf.saveTraveller(this);
 	}
 	/*
     public int addTraveller(Traveller trav){
