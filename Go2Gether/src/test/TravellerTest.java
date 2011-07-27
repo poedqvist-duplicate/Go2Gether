@@ -27,10 +27,10 @@ public class TravellerTest {
 		p1.setPhoneNumber("032110622");
 		p1.setAge("23");
 		
-		assertFalse(p1.getPhoneNumber().equals("032110621"));
+		assertFalse(p1.getPhone().equals("032110621"));
 		
 		assertEquals("Testperson", p1.getName());
-		assertEquals("032110622", p1.getPhoneNumber());
+		assertEquals("032110622", p1.getPhone());
 		assertEquals("23", p1.getAge());
 	}
 	
