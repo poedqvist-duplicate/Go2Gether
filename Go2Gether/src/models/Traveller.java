@@ -17,23 +17,23 @@ public class Traveller {
 	
 	private String name;
 	private String phoneNumber;
-	private String age;
-	private String Id;
+	private int age;
+	private UUID id;
 	private ArrayList<Journey> journeys = new ArrayList<Journey>();	
 	
 	public String getName(){
 		return name;
 	}
 	
-	public String getId(){
-		return Id;
+	public UUID getId(){
+		return id;
 	}
 	
 	public String getPhone(){
 		return phoneNumber;
 	}
 	
-	public String getAge(){
+	public int getAge(){
 		return age;
 	}
 	
@@ -57,19 +57,19 @@ public class Traveller {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public void setAge(String age){
+	public void setAge(int age){
 		this.age = age;
 	}
 	
-	//Temporary class for setting id
-	public void setId(String id){
-		this.Id = id;
+	public void setId(UUID id){
+		this.id = id;
 	}
 	
-	public void saveTraveller(){
+	public boolean saveTraveller(){
 		StorageFacade sf = new StorageFacade();
-		sf.saveTraveller(this);
+		return sf.saveTraveller(this) == 1;
 	}
+	
 	/*
     public int addTraveller(Traveller trav){
 		int retVal = -1;

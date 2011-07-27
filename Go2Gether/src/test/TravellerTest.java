@@ -25,13 +25,13 @@ public class TravellerTest {
 		Traveller p1 = new Traveller();
 		p1.setName("Testperson");
 		p1.setPhoneNumber("032110622");
-		p1.setAge("23");
+		p1.setAge(23);
 		
 		assertFalse(p1.getPhone().equals("032110621"));
 		
 		assertEquals("Testperson", p1.getName());
 		assertEquals("032110622", p1.getPhone());
-		assertEquals("23", p1.getAge());
+		assertEquals(23, p1.getAge());
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ public class TravellerTest {
 		Traveller p1 = new Traveller();
 		p1.setName("Testperson");
 		p1.setPhoneNumber("032110622");
-		p1.setAge("23");
+		p1.setAge(23);
 		
 		//Creates two cities
 		City t1 = new City("Göteborg");

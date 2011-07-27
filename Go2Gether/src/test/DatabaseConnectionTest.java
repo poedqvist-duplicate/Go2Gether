@@ -18,6 +18,7 @@ public class DatabaseConnectionTest {
 	public void canConnectAndDisconnectDb(){
 		DatabaseConnection dc1 = new DatabaseConnection();
 		assertTrue(dc1.connect());
+		assertTrue(dc1.isConnected());
 	}
 	
 }

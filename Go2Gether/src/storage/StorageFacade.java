@@ -4,6 +4,8 @@
 package storage;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.UUID;
 
 import models.Traveller;
 
@@ -14,39 +16,55 @@ import models.Traveller;
  */
 public class StorageFacade {
 	
-	//public Traveller getTraveller(){
-	//Traveller t1 = new Traveller();
-	
-	//}
-	
-	public void saveTraveller(Traveller travellerToBeSaved) {
+	public int saveTraveller(Traveller travellerToBeSaved) {
 		
 		DatabaseConnection dc1 = new DatabaseConnection();
 		dc1.connect();
 		
-		Statement sqlStatement = null;
-		
 		String sqlString = String.format(
 				"INSERT INTO \"Travellers\" VALUES ('%s', '%s', '%s', %d);",
-				travellerToBeSaved.getName(), travellerToBeSaved.getId(), 
+				travellerToBeSaved.getName(), travellerToBeSaved.getId().toString(), 
 					travellerToBeSaved.getPhone(), travellerToBeSaved.getAge());
+	
+		return dc1.executeUpdate(sqlString);
+	}
+
+	private ArrayList<Traveller> getTravellers(String where){
 		
-		try {
-			sqlStatement.executeUpdate(sqlString);
-		} catch (SQLException ex) {
-			System.out.println("There was en error when executing the update");
-		}
+		DatabaseConnection dc1 = new DatabaseConnection();
+		dc1.connect();
+		ArrayList<Traveller> returnArray = null;
+		String sqlString = ("SELECT * FROM \"Travellers\" WHERE " + where);
 		
+		ResultSet rs = dc1.executeSQL(sqlString);
+		if(rs != null){
+			try{
+				returnArray = new ArrayList<Traveller>();
+				while(rs.next()){
+					Traveller t = new Traveller();
+					t.setName(rs.getString("Name"));
+					t.setId(UUID.fromString(rs.getString("Id")));
+					t.setAge(Integer.parseInt(rs.getString("Age")));
+					t.setPhoneNumber(rs.getString("Phone"));
+					returnArray.add(t);
+				}
+			} catch (Exception e){
+				System.out.println("Shit happens.." + e.getMessage());
+			}
+		} 
+		return returnArray;
 	}
 	
-	/**
-	public Traveller getTraveller(){
-		
-		String sqlString = "SELECT * FROM \"Travellers\" WHERE name = 
-		ResultSet rs;
-		Statement st;
-		rs = st.executeQuery();
+	public ArrayList<Traveller> getTravellersByName(String name) {
+		return getTravellers("\"Name\" like '" + name + "'");
 	}
-	*/
+
+	public ArrayList<Traveller> getTravellersByAge(int age) {
+		return getTravellers("\"Age\" = " + age);
+	}
+
+	public ArrayList<Traveller> getTravellersByPhone(String phone) {
+		return getTravellers("\"Phone\" like '" + phone + "'");
+	}
 
 }
