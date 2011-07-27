@@ -11,7 +11,7 @@ public class Journey {
 	
 	private City startCity;
 	private City endCity;
-	private City stopCity;
+	//private City stopCity;
 	
 	public Journey (City startCity, City endCity){
 		this.startCity = startCity;
